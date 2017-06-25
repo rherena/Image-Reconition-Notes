@@ -1,0 +1,61 @@
+---
+title: "Notes on basic uses of Raster"
+author: "Ricardo Herena"
+date: "6/24/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("~/Documents/Machine Learning Pred  454/Image Reconition Notes")
+```
+
+## R Markdown
+
+https://www.youtube.com/watch?v=fal4Jj81uMA
+
+
+```{r youtube_t}
+library(rgdal)
+library(raster)
+library(caret)
+```
+
+load in data using brick from raster package. Notice the 4 separate layers. the plot function isn't the best for plotting thus below we use the image function. 
+
+```{r brick_plot}
+
+img <- brick("13-Weedle.png")
+img
+img <- setMinMax(img)
+
+cellStats(img, range)
+
+img@extent
+
+plot(img, main = c("w1","w2","w3","w3"))
+plotRGB(img)
+
+
+
+```
+
+Apparently The plot() function in R has a base setting for the number of pixels that it will plot (100,000 pixels).
+
+```{r image}
+
+image(img$X13.Weedle.1)
+image(img$X13.Weedle.2)
+image(img$X13.Weedle.3)
+image(img$X13.Weedle.4)
+
+```
+
+
+```{r extract to DF}
+
+df <- as.data.frame(img)
+
+```
+
+
